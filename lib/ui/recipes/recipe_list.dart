@@ -282,7 +282,9 @@ class _RecipeListState extends State<RecipeList> {
           topLevelContext,
           MaterialPageRoute(
             builder: (context) {
-              return const RecipeDetails();
+              return RecipeDetails(
+                recipe: convertRecipe(recipe),
+              );
             },
           ),
         );

@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../data/models/models.dart';
+
 part 'recipe_model.g.dart';
 
 @JsonSerializable()
@@ -84,7 +86,7 @@ String getWeight(double? weight) {
 class APIIngredients {
   @JsonKey(name: 'text')
   String name;
-  double weight;
+  String? weight;
 
   APIIngredients({
     required this.name,
@@ -98,3 +100,28 @@ class APIIngredients {
 }
 
 // TODO: Add convertIngredients() here
+Recipe convertRecipe(APIRecipe apiRecipe) {
+  final detailRecipe = Recipe(
+    label: apiRecipe.label,
+    image: apiRecipe.image,
+    url: apiRecipe.url,
+    calories: apiRecipe.calories,
+    totalTime: apiRecipe.totalTime,
+    totalWeight: apiRecipe.totalWeight,
+  );
+  detailRecipe.ingredients = convertIngredients(apiRecipe.ingredients);
+  return detailRecipe;
+}
+
+List<Ingredient> convertIngredients(List<APIIngredients> apiIngredients) {
+  final ingredients = <Ingredient>[];
+
+  for (var apiIngredient in apiIngredients) {
+    final ingredient = Ingredient(
+      name: apiIngredient.name,
+      weight: apiIngredient.weight,
+    );
+    ingredients.add(ingredient);
+  }
+  return ingredients;
+}
