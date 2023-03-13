@@ -275,7 +275,7 @@ class _RecipeListState extends State<RecipeList> {
 
   Widget _buildRecipeCard(
       BuildContext topLevelContext, List<APIHits> hits, int index) {
-    final recipe = hits[index].recipe;
+    final apiRecipe = hits[index].recipe;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -283,13 +283,13 @@ class _RecipeListState extends State<RecipeList> {
           MaterialPageRoute(
             builder: (context) {
               return RecipeDetails(
-                recipe: convertRecipe(recipe),
+                recipe: convertRecipe(apiRecipe),
               );
             },
           ),
         );
       },
-      child: recipeCard(recipe),
+      child: recipeCard(apiRecipe),
     );
   }
 }
